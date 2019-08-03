@@ -12,13 +12,25 @@
   <body>
   
     <%= render "shered/menu" %>
+    <div class="container">
+      
     <section class="section">
      <div class="columns">
        <div class="column is-half is-offset-one-quarter">
           <%= render "shered/notice" %>
      </div>
      </div>
-    <%= yield %>
-    </section>
+   </section>
+
+   <section class="section">
+ 
+        <%= yield %>
+     
+   </section>
+
+ 
+   </div>
+
+
   </body>
 </html>

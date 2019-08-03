@@ -9,12 +9,9 @@
 <div class="column  is-half is-offset-4">
 
 <%= form_tag("/home/search", method: :get) do %>
-  
-
 
 <div class="field has-addons">
 
- 
 <div class="control has-icons-left">
 <%= text_field_tag(:text, '', class: 'input is-medium', placeholder: "Search in MuseScore...") %>
 <span class="icon is-medium is-right">
@@ -24,10 +21,9 @@
 
   <%= submit_tag("Search", class: 'button is-medium is-primary') %>
 
-
 </div>
 
-  
+
  
 <% end %>
 

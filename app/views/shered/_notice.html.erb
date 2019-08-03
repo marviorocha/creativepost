@@ -3,5 +3,24 @@
   <button class="delete"></button>
 <%= flash[:notice] %>
 </div>
+<% end %>
+
+
+<% if notice %>
+
+<div class="notification is-info">
+  <%= notice %>
+  <button class="delete"></button>
+</div>
+
+<% end %>
+
+
+<% if alert %>
+  
+<div class="notification is-danger">
+ <%= alert %>
+  <button class="delete"></button>
+</div>
 
 <% end %>

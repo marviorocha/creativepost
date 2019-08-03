@@ -11,6 +11,17 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require trix/dist/trix.js
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+<script type="text/javascript">
+    $(function() {
+        var editor = editormd("editor", {
+            // width: "100%",
+            // height: "100%",
+            // markdown: "xxxx",     // dynamic set Markdown text
+            path : "editor.md/lib/"  // Autoload modules mode, codemirror, marked... dependents libs path
+        });
+    });
+</script>

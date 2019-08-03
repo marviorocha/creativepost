@@ -1,54 +1,39 @@
 
+<% content_for(:title, 'MuseScore Application')  %>
+
 <div class="container">
 <section>
 
+<div class="columns">
 
-    
+<div class="column  is-half is-offset-4">
 
 <%= form_tag("/home/search", method: :get) do %>
   
-<div class="field addons-icons">
-  <p class="control has-icons-left">
-    <input class="input" type="email" placeholder="Email">
-    <span class="icon is-medium">
-      <i class="fas fa-search"></i>
-    </span>
-   
-  </p>
-</div>
-<div class="field">
-  <p class="control has-icons-left">
-    <input class="input" type="password" placeholder="Password">
-    <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-    </span>
-  </p>
-</div>
-<div class="field">
-  <p class="control">
-    <button class="button is-success">
-      Login
-    </button>
-  </p>
-</div>
 
 
-  <div class="field has-addons">
-  <div class="control has-icons-left">
-  <%= label_tag(:text, "Pesquisa por:") %>
-   <%= text_field_tag(:text, "", class: 'input') %>
-   <span class="icon is-medium is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-  </div>
+<div class="field has-addons">
+
  
-  </div>
+<div class="control has-icons-left">
+<%= text_field_tag(:text, '', class: 'input is-medium', placeholder: "Search in MuseScore...") %>
+<span class="icon is-medium is-right">
+<i class="fas fa-search"></i>
+</span>
+</div>
 
-  <%= number_field_tag(:min) %>
- 
-  <%= submit_tag("Search", class: 'button is-primary') %>
+  <%= submit_tag("Search", class: 'button is-medium is-primary') %>
+
+
+</div>
+
+  
  
 <% end %>
+
+      <!-- // End Div columns is-centered -->
+  </div> 
+</div>    
  
 </section>
 </div>

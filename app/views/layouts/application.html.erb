@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Creativepost</title>
+    <title> <%= content_for?(:html_title) ? yield(:html_title) : "Creative Post"  %> </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+ 
   <body>
+  
     <%= render "shered/menu" %>
     <section class="section">
+     <div class="columns">
+       <div class="column is-half is-offset-one-quarter">
+          <%= render "shered/notice" %>
+     </div>
+     </div>
     <%= yield %>
     </section>
   </body>

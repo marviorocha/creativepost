@@ -3,5 +3,10 @@ Rails.application.routes.draw do
 
 root to: "home#index"
 
+get "home/search", to: "home#search"
+
+post "home/post/:id", to: "home#post", as: "post"
+get "home/show/:id", to: "home#show", as: "show"
+
 
 end

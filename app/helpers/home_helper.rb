@@ -7,9 +7,9 @@ end
 
 def score_pdf (id, secret)
    gen = id.split(//).last(3).reverse.join('/') 
-   url = "https://musescore.com/score/#{id}/download/pdf"
+   url = "https://musescore.com/static/musescore/scoredata/gen/#{gen}/#{id}/#{secret}/score_full.pdf"
 end
-
+ 
 def score_midi (id, secret)
    gen = id.split(//).last(3).reverse.join('/') 
    url = "http://musescore.com/static/musescore/scoredata/gen/#{gen}/#{id}/#{secret}/score.mid"
@@ -22,7 +22,7 @@ end
 
 def score_musescore (id, secret)
    gen = id.split(//).last(3).reverse.join('/') 
-   url = "https://musescore.com/score/#{id}/download/mscz"
+   url = "http://musescore.com/static/musescore/scoredata/gen/#{gen}/#{id}/#{secret}/score.mscz"
 end
 
 def score_xml (id, secret)

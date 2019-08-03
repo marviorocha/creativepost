@@ -44,13 +44,20 @@ include HomeHelper
         
         <!-- wp:paragraph -->
         <figure class='wp-block-image'>
-        <img  alt='#{@score['title']}' src='#{ score_img(@score['id'], @score['secret'])}' class='wp-image-600'/></figure>
+        <iframe width='100%' height='1135' scrolling='no' src='http://musescore.com/node/#{@score['id']}/embed' frameborder='0'></iframe>
         <!-- /wp:paragraph -->
-        
+      
+  
         <!-- wp:paragraph -->
         <p><strong>Descrição:</strong> #{@score['description']} </p>
         <!-- /wp:paragraph -->
+    
+        <!-- wp:paragraph -->
+        <figure class='wp-block-image'>
+        <img  alt='#{@score['title']}' src='#{ score_img(@score['id'], @score['secret'])}' class='wp-image-500'/></figure>
+        <!-- /wp:paragraph -->
         
+
         <!-- wp:paragraph -->
         <p><br><strong>Páginas:</strong> #{ @score['metadata']['pages']} 
         <br><strong>Sub titulo:</strong> #{ 
@@ -84,9 +91,7 @@ include HomeHelper
         <!-- /wp:column -->
         
         <!-- wp:column -->
-        <div class='wp-block-column'><!-- wp:button {'customBackgroundColor':'#3474bd','align':'center'} -->
-        <div class='wp-block-button aligncenter'><a  target='_blank' href='#{ score_musescore(@score['id'], @score['secret'])}' class='wp-block-button__link has-background' style='background-color:#3474bd'>MuseScore</a></div>
-        <!-- /wp:button --></div>
+        <div class='wp-block-column'> </div>
         <!-- /wp:column --></div>
         <!-- /wp:columns -->"
          end
@@ -105,9 +110,7 @@ include HomeHelper
  
         # RestClient.post '/', :myfile => File.new(score_img(@score['id'], @score['secret']), 'rb')
       
-   
-
-     
+        
         RestClient::Request.execute(
             method: :post, 
             url: 'https://www.showbiz.mus.br/wp-json/wp/v2/posts/',

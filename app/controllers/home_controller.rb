@@ -28,10 +28,6 @@ include HomeHelper
         category = RestClient.get('https://www.showbiz.mus.br/wp-json/wp/v2/categories')
         @categories = JSON.parse(category.to_str)
         
-        
-       
-        
-
         #get score api
         response = RestClient.get("http://api.musescore.com/services/rest/score/#{params[:id]}.json?oauth_consumer_key=#{key}")
         @score = JSON.parse(response.to_str)
@@ -41,7 +37,7 @@ include HomeHelper
         @score_user = JSON.parse(url_user.to_str)
           
         @content = "<!-- wp:paragraph -->
-        <p><strong>Compositor:</strong> #{@score['metadata']['composer']}  - <strong>Arranjo:</strong> 
+        <p><a title='link para download de partitura' href='#download'>Download</a> | <strong>Compositor:</strong> #{@score['metadata']['composer']}  - <strong>Arranjo:</strong> 
         <img alt='#{@score_user['name']}' class='wp-image-40' width='40' hight='40' sizes='40' 
         src='#{@score_user['avatar_url']}' /> #{@score_user['name']}</p>
         <!-- /wp:paragraph -->
@@ -56,11 +52,11 @@ include HomeHelper
         <!-- /wp:paragraph -->
         
         <!-- wp:paragraph -->
-        <p><br><strong>Páginas:</strong>#{ @score['metadata']['pages']} 
-        <br><strong>Sub titulo:</strong>#{ 
+        <p><br><strong>Páginas:</strong> #{ @score['metadata']['pages']} 
+        <br><strong>Sub titulo:</strong> #{ 
             @score['metadata']['subtitle']
    
-            }<br><strong>Download:</strong>:</p>
+            }<br><strong id='download'>Download:</strong></p>
         <!-- /wp:paragraph -->
         
         <!-- wp:columns {'columns':4,'align':'wide'} -->

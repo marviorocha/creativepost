@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require bulma/css/bulma.min.css
- *= require font-awesome5/css/fontawesome-all.css
  *= require_self
  */
+ @import "font-awesome-sprockets";
+ @import "font-awesome";

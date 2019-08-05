@@ -2,6 +2,8 @@
 
 This is a simple software for get api RESTfull the CMS Wordpress. This a exemple for get, create, update, delete
 
+this app is deployed in Heroku
+
 
 ## Support
 

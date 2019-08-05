@@ -32,7 +32,8 @@
                           <% end %>
 
                         </div>
-                        <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                            <%= f.submit "Log in", class: "button is-block is-info is-large is-fullwidth" %>
+                     
                     </form>
                 </div>
                 <p class="has-text-grey">           
@@ -41,23 +42,8 @@
             </div>
         </div>
  
+ 
 
-<h2>Log in</h2>
-
-
-  <div class="field">
-    <%= f.label :email %><br />
-    
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
 <% end %>
 

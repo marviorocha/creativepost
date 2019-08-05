@@ -27,7 +27,9 @@ include HomeHelper
         # WP Get Score Piano
         category = RestClient.get('https://www.showbiz.mus.br/wp-json/wp/v2/categories')
         @categories = JSON.parse(category.to_str)
-        
+
+      
+
         #get score api
         response = RestClient.get("http://api.musescore.com/services/rest/score/#{params[:id]}.json?oauth_consumer_key=#{key}")
         @score = JSON.parse(response.to_str)
@@ -35,6 +37,14 @@ include HomeHelper
         #get user api
         url_user = RestClient.get("http://api.musescore.com/services/rest/user/#{@score['user']['uid']}.json?oauth_consumer_key=#{key}")
         @score_user = JSON.parse(url_user.to_str)
+
+          # Get Composer Information Wikepedia API
+       
+        namecomposer =  @score['metadata']['composer'].gsub(/\d|[()]|[–]/, "")
+        
+        composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search=#{URI.decode(namecomposer)}&format=json")
+       
+        @composer = JSON.parse(composer.to_str)
           
         @content = "<!-- wp:paragraph -->
         <p><a title='link para download de partitura' href='#download'>Download</a> | <strong>Compositor:</strong> #{@score['metadata']['composer']}  - <strong>Arranjo:</strong> 
@@ -42,6 +52,11 @@ include HomeHelper
         src='#{@score_user['avatar_url']}' /> #{@score_user['name']}</p>
         <!-- /wp:paragraph -->
         
+        <!-- wp:paragraph -->
+        <p><strong>Um pouco sobre esse compositor:</strong> #{ @composer[2][0]  } </p>
+        <!-- /wp:paragraph -->
+
+
         <!-- wp:paragraph -->
         <figure class='wp-block-image'>
         <iframe width='100%' height='1135' scrolling='no' src='http://musescore.com/node/#{@score['id']}/embed' frameborder='0'></iframe>
@@ -100,7 +115,7 @@ include HomeHelper
     
         key = "wRjSNdPcrnT7CcK7jaS5HuWeT4Q9RQoF"
         text = params['text']
-        url  =  RestClient.get("http://api.musescore.com/services/rest/score.json?oauth_consumer_key=#{key}&part=1&sort=view_count&text='#{text}'&language&page&parts&view_count&date_uploaded&relevance&comment_count")
+        url  =  RestClient.get("http://api.musescore.com/services/rest/score.json?oauth_consumer_key=#{key}&part=1&sort=view_count&text='#{ URI.encode(text) }'&language&page&parts&view_count&date_uploaded&relevance&comment_count")
         @score = JSON.parse(url.to_str)
     end
 

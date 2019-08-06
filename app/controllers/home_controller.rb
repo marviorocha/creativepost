@@ -44,7 +44,7 @@ include HomeHelper
         
       
 
-       composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search='#{URI.decode(namecomposer)}'&format=json")
+       composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search='#{URI.encode(namecomposer)}'&format=json")
        
         @composer = JSON.parse(composer.to_str)
 

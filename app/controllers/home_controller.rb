@@ -78,7 +78,7 @@ include HomeHelper
         
 
         <!-- wp:paragraph -->
-        <p><b>Dica:</b> Você pode abrir o arquivo <b>MusicXML</b> em diversos editores de partituras. Recomendamos o <a href='https://www.showbiz.mus.br/musica/o-melhor-editor-de-partitura' 
+        <p><b>Dica:</b> Você pode abrir o arquivo <b>MusicXML</b> em diversos editores de partituras. Recomendamos o <a target='_blank' href='https://www.showbiz.mus.br/musica/o-melhor-editor-de-partitura' 
         title='Editor de Partitura' > MuseScore</a> para sua editoração musical. </p>
         <!-- /wp:paragraph -->
 

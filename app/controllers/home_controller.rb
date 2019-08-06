@@ -40,11 +40,15 @@ include HomeHelper
 
           # Get Composer Information Wikepedia API
        
-        namecomposer =  @score['metadata']['composer'].gsub(/\d|[()]|[–]/, "")
+        namecomposer =  @score['metadata']['composer'].gsub(/\d|[()]|[–]/, " ") 
         
-        composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search=#{URI.decode(namecomposer)}&format=json")
+      
+
+       composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search='#{URI.decode(namecomposer)}'&format=json")
        
         @composer = JSON.parse(composer.to_str)
+
+        
           
         @content = "<!-- wp:paragraph -->
         <p><a title='link para download de partitura' href='#download'>Download</a> | <strong>Compositor:</strong> #{@score['metadata']['composer']}  - <strong>Arranjo:</strong> 
@@ -53,7 +57,7 @@ include HomeHelper
         <!-- /wp:paragraph -->
         
         <!-- wp:paragraph -->
-        <p><strong>Um pouco sobre esse compositor:</strong> #{ @composer[2][0]  } </p>
+        <p><strong>Um pouco sobre esse compositor:</strong> #{  @composer[2][0] } </p>
         <!-- /wp:paragraph -->
 
 

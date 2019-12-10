@@ -62,7 +62,7 @@
     <div class="content">
 
   <p class="content">
-     <%= truncate( music['description'], length: "300")  %>
+
       <audio controls>
       <source src="<%= score_mp3(music['id'], music['secret']) %>" type="audio/mpeg">
     Your browser does not support the audio element.

@@ -9,5 +9,9 @@ get "home/search", to: "home#search"
 post "home/post/:id", to: "home#post", as: "post"
 get "home/show/:id", to: "home#show", as: "show"
 
+# Partituras Resorce
+resource :partituras
+
+get "partituras/search", to: "partituras#search"
 
 end

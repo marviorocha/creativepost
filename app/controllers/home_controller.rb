@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   
     before_action :post_now, only: [:post]
-
+ 
 include HomeHelper
 
     def index
@@ -17,19 +17,30 @@ include HomeHelper
     key = "wRjSNdPcrnT7CcK7jaS5HuWeT4Q9RQoF"
     url  =  RestClient.get("http://api.musescore.com/services/rest/score.json?oauth_consumer_key=#{key}&part=1&sort=view_count&text&language&page&parts&view_count&date_uploaded&relevance&comment_count")
     @score = JSON.parse(url.to_str)
-    
+
+
+ 
   
     end
+
+#####
+## Show show_path  
+#####
 
     def show
         key = "wRjSNdPcrnT7CcK7jaS5HuWeT4Q9RQoF"
         
-        # WP Get Score Piano
-        category = RestClient.get('https://www.showbiz.mus.br/wp-json/wp/v2/categories')
-        @categories = JSON.parse(category.to_str)
+        require 'algorithmia'
 
-      
+        require 'mechanize'
 
+        agent = Mechanize.new
+    
+ 
+        @page = agent.get('http://google.com/')
+
+       
+        
         #get score api
         response = RestClient.get("http://api.musescore.com/services/rest/score/#{params[:id]}.json?oauth_consumer_key=#{key}")
         @score = JSON.parse(response.to_str)
@@ -37,14 +48,22 @@ include HomeHelper
         #get user api
         url_user = RestClient.get("http://api.musescore.com/services/rest/user/#{@score['user']['uid']}.json?oauth_consumer_key=#{key}")
         @score_user = JSON.parse(url_user.to_str)
-
-          # Get Composer Information Wikepedia API
-       
+        
+        # Get Composer Information Wikepedia API
+        
         namecomposer =  @score['metadata']['composer'].gsub(/\d|[()]|[–]/, " ") 
         
+        
+        input = {
+          articleName: namecomposer,
+          lang: "pt"
+        }
+        client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
+        algo = client.algo('web/WikipediaParser/0.1.2')
+        algo.set('timeout':300) # optional
+        algo.pipe(input).result
       
-
-       composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search='#{URI.encode(namecomposer)}'&format=json")
+        composer = RestClient.get("https://pt.wikipedia.org/w/api.php?action=opensearch&search='#{URI.encode(namecomposer)}'&format=json")
        
         @composer = JSON.parse(composer.to_str)
 

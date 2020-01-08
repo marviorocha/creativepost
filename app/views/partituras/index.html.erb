@@ -1,5 +1,4 @@
-
-<% content_for(:title, 'MuseScore Application')  %>
+<% content_for(:title, 'Partituras Application')  %>
 
 <div class="container">
 <section>
@@ -8,14 +7,14 @@
 
 <div class="column  is-half is-offset-4">
 
-<%= form_tag("/home/search", method: :get) do %>
+<%= form_tag("/partituras/search", method: :get) do %>
 
 <div class="field has-addons">
 
 <div class="control has-icons-left">
-<%= text_field_tag(:text, '', class: 'input is-medium', placeholder: "Search in MuseScore...") %>
+<%= text_field_tag(:text, '', class: 'input is-medium', placeholder: "Search partituras...") %>
 <span class="icon is-medium is-left">
-<i class="fab fa-search"></i>
+<i class="fas fa-search"></i>
 </span>
 </div>
 

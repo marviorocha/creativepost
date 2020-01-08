@@ -7,7 +7,11 @@ gem 'rest-client'
 
 gem 'devise'
 
+gem 'mechanize'
+
 gem 'font-awesome-sass'
+
+gem 'algorithmia'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'

@@ -1,0 +1,23 @@
+
+<table class="table is-fullwidth is-striped">
+ 
+    <tr>
+      <th><abbr title="Title">Title</abbr></th>
+      <th>Descrição</th>
+      <th>Ação</th>
+    </tr>
+ 
+ 
+  <tbody>
+<%  @page.links.each do |links| %>
+ 
+   <tr>
+      <th><%= link_to links.text, "https://google.com/#{links.uri}", target: "_blank" %></th>
+      <th>Descricao</th>
+      <th>action</th>
+   </tr> 
+   
+     <% end %>
+     
+  </tbody>
+</table>

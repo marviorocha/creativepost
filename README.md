@@ -1,3 +1,3 @@
-# Scripting for creating post on Jekylll
+# Script for Auto Create Post on Jekylll
 ### Dev: Marvio Rocha
 ### [www.marviorocha.com](https://marviorocha.com)

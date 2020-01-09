@@ -10,7 +10,7 @@ post "home/post/:id", to: "home#post", as: "post"
 get "home/show/:id", to: "home#show", as: "show"
 
 # Partituras Resorce
-resource :partituras
+resources :partituras
 
 get "partituras/search", to: "partituras#search"
 

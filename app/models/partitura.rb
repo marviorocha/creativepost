@@ -1,0 +1,2 @@
+class Partitura < ApplicationRecord
+end

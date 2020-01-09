@@ -1,0 +1,23 @@
+
+
+<table class="table">
+<tr>
+<th>Title</th>
+<th>link</th>
+<th>Action</th>
+</th>
+<tbody>
+<% @partitura.each do |sheet| %>
+<tr>
+<td><%= sheet.id %></td>
+<td><%= sheet.title %></td>
+<td><%= link_to 'visualizar', "#{sheet.link}", class: 'button is-outlined is-link', target: '_blank' %></td>
+<td class="buttons">
+<%= link_to "Publicar", edit_partitura_path(sheet), class: 'button is-success' %>
+<%= link_to "Deletar", partitura_path(sheet), method: :delete, data: {confirm: "Você realmente deseja deletar esse item
+                 #{sheet.id}?"}, class: "button is-outlined is-danger is-small" %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+

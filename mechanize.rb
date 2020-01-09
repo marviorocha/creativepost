@@ -15,10 +15,10 @@ duck_form = page.form('x')
 # puts 'Qual é o nome da musica que você deseja: '
 
 
-# puts "Qual é o Artista + Instrumentos"
+puts "Qual é o Artista + Instrumentos"
 # name_sheet = gets
 
-name_sheet = "Mozart"
+
 
 duck_form.q = "partitura #{name_sheet} filetype:pdf"
 #duck_form_image.q = "#{name_sheet} Album"
@@ -59,10 +59,12 @@ page.search('.links_main').each do |s|
     ScaleProportions: true,
     ImageHeight: 600,
     ImageWidth: 600,
+    Timeout:400,
     JpgQuality: 60,
   )
   
   saved_files = jpg_result.save_files("../showbiz/assets/images/partituras/")
+  image_out = "#{saved_files[0].gsub("../showbiz","")}"
   
   puts "The thumbnail saved to #{title}"
   
@@ -77,11 +79,12 @@ page.search('.links_main').each do |s|
       file.puts "date: #{date}"
       file.puts "download_pdf: #{link[0]}"
       file.puts "category: partituras"
-      file.puts "image:  /assets/images/partituras/#{saved_files[0]}"
+      file.puts "image: #{image_out}"
       file.puts "layout: post"
-        file.puts "nivel: #{nivel} "
-        file.puts '---'
-      end
+      file.puts "nivel: #{nivel} "
+      file.puts '---'
+      file.puts "![#{clear_title}](#{image_out})"
+    end
     
     end
 

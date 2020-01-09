@@ -20,12 +20,15 @@ class PartiturasController < ApplicationController
     def edit
     
 
-        
+      
         
         client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
-        sumarize = client.algo('SummarAI/Summarizer/0.1.3')
-        suma = @partitura.desciption
-        @resumo = sumarize.pipe(suma).result
+
+          sumarize = client.algo('SummarAI/Summarizer/0.1.3')
+ 
+          suma = "#{@partitura.description}"
+          
+          @resumo = sumarize.pipe(suma).result
 
     end
     
@@ -49,9 +52,13 @@ class PartiturasController < ApplicationController
         # client que gera conteúdoc
 
         client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
+        input = {
+            articleName: "#{params['text']}",
+            lang: "pt"
+          }
         algo = client.algo('web/WikipediaParser/0.1.2')
-        algo.set('timeout':300) # optional
         result = algo.pipe(input).result
+        algo.set('timeout':300) # optional
         Partitura.create(title: title, link: link[0], description: result["content"] )
        
     end

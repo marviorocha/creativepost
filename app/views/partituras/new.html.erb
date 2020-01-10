@@ -3,14 +3,16 @@
 <table class="table">
 <tr>
 <th>Title</th>
+<th>Description</th>
 <th>link</th>
 <th>Action</th>
 </th>
 <tbody>
 <% @partitura.each do |sheet| %>
 <tr>
-<td><%= sheet.id %></td>
+<td><%= check_box_tag(:sheet_id, class: "checkbox") %></td>
 <td><%= sheet.title %></td>
+<td><%= truncate(sheet.description, length: 30 ) %></td>
 <td><%= link_to 'visualizar', "#{sheet.link}", class: 'button is-outlined is-link', target: '_blank' %></td>
 <td class="buttons">
 <%= link_to "Publicar", edit_partitura_path(sheet), class: 'button is-success' %>

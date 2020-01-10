@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require player
+//= require select_all.js
 //= require turbolinks
 //= require_tree .
  
@@ -41,3 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   });
 
+  $(function() {
+    $("#selectAll").select_all();
+  });

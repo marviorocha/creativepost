@@ -13,8 +13,9 @@ gem 'font-awesome-sass'
 
 gem 'algorithmia'
 
- 
+gem 'convert_api'
 
+gem 'select_all-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'

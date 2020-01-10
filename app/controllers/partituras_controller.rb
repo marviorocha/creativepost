@@ -1,37 +1,114 @@
 class PartiturasController < ApplicationController
-
-    before_action :partitura_set, only: [:edit, :destroy, :update]
-    require 'mechanize'
-    require 'algorithmia'
-
- 
+  
+  before_action :partitura_set, only: [:edit, :destroy, :update]
+  require 'mechanize'
+  require 'algorithmia'
+  require 'convert_api'
+  
+  
+  def index 
     
-    def index 
-        
-        
-    end
     
+  end
+  
     def new 
-    
-    @partitura = Partitura.all
-    
-    end
-
-    def edit
-    
-
       
-        
-        client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
+      @partitura = Partitura.all.order(created_at: :desc)
+      
+    end
+    
+    def edit
+      
+      
+      client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
+      tags = client.algo('nlp/AutoTag/1.0.1')
+      sumarize = client.algo('SummarAI/Summarizer/0.1.3')
+      
+      tag_input = @partitura.description    
+      @tags = tags.pipe(tag_input).result
+      get_title = @partitura.title.split("-")
+      input = {
+        articleName: get_title[0],
+                      lang: "pt"
+                    }
+                    algo = client.algo('web/WikipediaParser/0.1.2')
+                    result = algo.pipe(input).result
+                    algo.set('timeout':300) # optional
+                    
+       @suma = result['summary']
+       @images = result['images']
+       
+       # client que gera conteúdoc
+       
+       @resumo = sumarize.pipe(@suma).result
+       
+      end
+      
+    # Update and create score music 
+    
+    def update 
+      
+      respond_to do |format|
 
-          sumarize = client.algo('SummarAI/Summarizer/0.1.3')
- 
-          suma = "#{@partitura.description}"
+        
+
+        if(@partitura.update(partitura_params))
+
           
-          @resumo = sumarize.pipe(suma).result
+          
+    ConvertApi.config.api_secret = 'Oqj7jopTDGYyXzGw'
+  
+         pdf_result = ConvertApi.convert(
+            'extract',
+            File: "#{@partitura.link}",
+            PageRange: 1,
+          )
+          
+          jpg_result = ConvertApi.convert(
+            'jpg',
+            File: pdf_result,
+            ScaleImage: true,
+    ScaleProportions: true,
+    ImageHeight: 600,
+    ImageWidth: 600,
+    Timeout:400,
+    JpgQuality: 60,
+  )
+  
+  saved_files = jpg_result.save_files("../showbiz/assets/images/partituras/")
+  image_out = "#{saved_files[0].gsub("../showbiz","")}"
+
+  date = Time.zone.now.strftime("%Y-%m-%d-%H-%M")
+  
+   File.open("../showbiz/_posts/partituras/#{date}-#{@partitura.title}.md", 'w') do |file|
+      
+      file.puts '---'
+      file.puts "title: #{@partitura.title}"
+      file.puts "permalink: /#{@partitura.title.gsub(' ', '_')}/"
+      file.puts "date: #{date}"
+      file.puts "download_pdf: #{@partitura.link}"
+      file.puts "category: partituras"
+      file.puts "image: #{image_out}"
+      file.puts "layout: post"
+      file.puts "tags: [#{params['tags']}]"
+      file.puts "nivel: #{params['nivel']}"
+      file.puts '---'
+      file.puts "#{params['description']}"
+    end
+     
+    @partitura.update(title: "Partitura foi Criada - #{@partitura.title}")
+    
+          format.html {redirect_to new_partitura_path, notice: "Conteúdo foi adicionado com sucesso!"}
+        else
+
+        end
+      
+      end
 
     end
     
+    # Show files the search
+
     def show 
         
         
@@ -39,7 +116,7 @@ class PartiturasController < ApplicationController
         agent = Mechanize.new
         @page = agent.get('https://duckduckgo.com/')
         duck_form = @page.form('x')
-        duck_form.q = "partitura #{params['text']} filetype:pdf"
+        duck_form.q = "#{params['text']} sheet music filetype:pdf"
         @page = agent.submit(duck_form, duck_form.buttons.first)
         
         # Inicio do looping
@@ -47,19 +124,10 @@ class PartiturasController < ApplicationController
 
         link = s.search('.result__snippet').map { |link| link['href'] }
         title = s.search('.result__a').text.gsub(/(.com|-|.com.br|PDF)/,'')
+        description = s.search('.result__snippet').text.gsub(/\W/,' ')
         date = Time.now.strftime('%Y-%m-%d-%H-%M')
         
-        # client que gera conteúdoc
-
-        client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
-        input = {
-            articleName: "#{params['text']}",
-            lang: "pt"
-          }
-        algo = client.algo('web/WikipediaParser/0.1.2')
-        result = algo.pipe(input).result
-        algo.set('timeout':300) # optional
-        Partitura.create(title: title, link: link[0], description: result["content"] )
+        Partitura.create(title: "#{params['text']} - " + title, link: link[0], description: description )
        
     end
     
@@ -88,7 +156,7 @@ class PartiturasController < ApplicationController
 
    def partitura_params
 
-    partitura.require(:partitura).permit(:title, :link, :description, :image)
+    params.require(:partitura).permit(:title, :link, :description, :image)
 
    end
 

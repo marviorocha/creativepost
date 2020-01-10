@@ -15,12 +15,12 @@ duck_form = page.form('x')
 # puts 'Qual é o nome da musica que você deseja: '
 
 
-puts "Qual é o Artista + Instrumentos"
-# name_sheet = gets
+#puts "Qual é o Artista + Instrumentos"
+name_sheet = "Mozart"
 
 
 
-duck_form.q = "partitura #{name_sheet} filetype:pdf"
+duck_form.q = "#{name_sheet} sheet music filetype:pdf"
 #duck_form_image.q = "#{name_sheet} Album"
 
 
@@ -28,9 +28,7 @@ duck_form.q = "partitura #{name_sheet} filetype:pdf"
 page = agent.submit(duck_form, duck_form.buttons.first)
 
 
-puts "Qual será o nível"    
-nivel = gets
-
+ 
 puts 'Gerando posts sheet music...'
 
 
@@ -81,7 +79,7 @@ page.search('.links_main').each do |s|
       file.puts "category: partituras"
       file.puts "image: #{image_out}"
       file.puts "layout: post"
-      file.puts "nivel: #{nivel} "
+      file.puts "nivel: avançado"
       file.puts '---'
       file.puts "![#{clear_title}](#{image_out})"
     end

@@ -59,11 +59,15 @@ GEM
     algorithmia (1.1.0)
       httparty (~> 0.13)
       json (~> 2.0)
+    aws_cf_signer (0.1.3)
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
+    cloudinary (1.13.1)
+      aws_cf_signer
+      rest-client
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     convert_api (1.2.0)
@@ -241,6 +245,7 @@ PLATFORMS
 DEPENDENCIES
   algorithmia
   bootsnap (>= 1.1.0)
+  cloudinary
   convert_api
   devise
   font-awesome-sass

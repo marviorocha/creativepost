@@ -9,7 +9,7 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require jquery/dist/jquery.min.js
 //= require rails-ujs
 //= require player
 //= require select_all.js

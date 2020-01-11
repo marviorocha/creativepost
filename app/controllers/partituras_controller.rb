@@ -19,6 +19,7 @@ class PartiturasController < ApplicationController
     
     def edit
       
+     
       
       client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
       tags = client.algo('nlp/AutoTag/1.0.1')
@@ -39,14 +40,17 @@ class PartiturasController < ApplicationController
        @images = result['images']
        
        # client que gera conteúdoc
+       title_friend = @partitura.title.parameterize
+
+       Cloudinary::Uploader.upload(@partitura.link,  :folder => "sheetmusic/", :public_id => title_friend )
        
        @resumo = sumarize.pipe(@suma).result
        
       end
       
-    # Update and create score music 
+      # Update and create score music 
     
-    def update 
+      def update 
       
       respond_to do |format|
 
@@ -84,9 +88,10 @@ class PartiturasController < ApplicationController
       
       file.puts '---'
       file.puts "title: #{@partitura.title}"
-      file.puts "permalink: /#{@partitura.title.gsub(' ', '_')}/"
+      file.puts "subtitle: #{params['subtitle']}"
+      file.puts "permalink: /#{@partitura.title.gsub(' ', '-').downcase}/"
       file.puts "date: #{date}"
-      file.puts "download_pdf: #{@partitura.link}"
+      file.puts "download_pdf: #{params['link_cloud']}"
       file.puts "category: partituras"
       file.puts "image: #{image_out}"
       file.puts "layout: post"
@@ -96,7 +101,8 @@ class PartiturasController < ApplicationController
       file.puts "#{params['description']}"
     end
      
-    @partitura.update(title: "Partitura foi Criada - #{@partitura.title}")
+    @partitura.update(title: "ok -------------------------")
+    
     
           format.html {redirect_to new_partitura_path, notice: "Conteúdo foi adicionado com sucesso!"}
         else
@@ -146,6 +152,18 @@ class PartiturasController < ApplicationController
  
 
    end
+
+
+ def destroy_multiple
+   
+    Partitura.destroy(params[:partituras_ids])
+   
+    respond_to do |format|
+     
+      format.html { redirect_to new_partitura_path, notice: "Os itens foi deletado com successo"}
+       
+    end
+  end
 
 
    private 

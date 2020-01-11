@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: djmnbpi6a
+  api_key: '864524828533431'
+  api_secret: VtfBHquXGvNUV-7jP4RMlUR1opw
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: djmnbpi6a
+  api_key: '864524828533431'
+  api_secret: VtfBHquXGvNUV-7jP4RMlUR1opw
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: djmnbpi6a
+  api_key: '864524828533431'
+  api_secret: VtfBHquXGvNUV-7jP4RMlUR1opw
+  enhance_image_tag: true
+  static_file_support: false

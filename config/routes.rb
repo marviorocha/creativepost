@@ -10,8 +10,13 @@ post "home/post/:id", to: "home#post", as: "post"
 get "home/show/:id", to: "home#show", as: "show"
 
 # Partituras Resorce
-resources :partituras
+resources :partituras do
+  collection do
+    get "partituras/search", to: "partituras#search"
+    delete 'destroy_multiple'
+  end
+end
 
-get "partituras/search", to: "partituras#search"
+
 
 end

@@ -10,18 +10,27 @@
 </div>
 
 <div class="field">
+
+<div class="control">
+<%= f.label :subtitle, "Sub Title:", class: "label" %>
+<%= text_field_tag :subtitle, "", class: "input" %>
+</div>
+</div>
+
+
+<div class="field">
     <div class="control">
     <%= f.label :nivel, "Nível", class: "label" %>
     <div class="select">
     <%= select_tag :nivel, options_for_select(["Iniciante", "Fácil", "Intermediário", "Avançado"]), class: "select" %>
     </div>
     </div>
-</div>
+ 
 
 <div class="field">
 <div class="control is-medium">
 <%= f.label :description, "Conteúdo:", class: "label" %>
-<%= text_area_tag :description, @suma, class: "textarea" %>
+<%= text_area_tag :description, @suma, class: "textarea", rows: "15" %>
 </div>
 </div>
 
@@ -36,7 +45,8 @@
     <%= f.submit 'Publicar', class: "button is-success" %>
     </div>
 </div>
-
-<%= f.hidden_field :link %>
+ <%= f.hidden_field :link  %>
+ 
+<%= hidden_field_tag :link_cloud, "http://res.cloudinary.com/djmnbpi6a/image/upload/fl_attachment/v1/sheetmusic/#{@partitura.title.parameterize}.pdf", class: "input" %>
 
  <% end %>

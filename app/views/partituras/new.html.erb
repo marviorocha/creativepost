@@ -1,7 +1,9 @@
 
-
+<%= form_tag destroy_multiple_partituras_path, method: :delete, data: {confirm: "You are sure this item?"} do %>
 <table class="table">
 <tr>
+ <%= submit_tag 'Deletar Selecionado', class: 'button is-danger is-small' %> 
+ <th data-sort-ignore="true"><input type="checkbox" id="selectAll"></input></th>
 <th>Title</th>
 <th>Description</th>
 <th>link</th>
@@ -10,7 +12,7 @@
 <tbody>
 <% @partitura.each do |sheet| %>
 <tr>
-<td><%= check_box_tag(:sheet_id, class: "checkbox") %></td>
+<td><%= check_box_tag "partituras_ids[]", sheet.id, false, class: 'selectable' %></td>
 <td><%= sheet.title %></td>
 <td><%= truncate(sheet.description, length: 30 ) %></td>
 <td><%= link_to 'visualizar', "#{sheet.link}", class: 'button is-outlined is-link', target: '_blank' %></td>
@@ -23,3 +25,4 @@
 </tbody>
 </table>
 
+<% end %>

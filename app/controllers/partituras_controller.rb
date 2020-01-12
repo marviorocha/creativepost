@@ -13,7 +13,7 @@ class PartiturasController < ApplicationController
   
     def new 
       
-      @partitura = Partitura.all.order(created_at: :desc)
+      @partitura = Partitura.all.order(created_at: :desc).page(params['page'])
       
     end
     
@@ -89,7 +89,7 @@ class PartiturasController < ApplicationController
       file.puts '---'
       file.puts "title: #{@partitura.title}"
       file.puts "subtitle: #{params['subtitle']}"
-      file.puts "permalink: /#{@partitura.title.gsub(' ', '-').downcase}/"
+      file.puts "permalink: /#{@partitura.title.parameterize}/"
       file.puts "date: #{date}"
       file.puts "download_pdf: #{params['link_cloud']}"
       file.puts "category: partituras"

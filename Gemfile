@@ -15,6 +15,8 @@ gem 'algorithmia'
 
 gem 'convert_api'
 
+gem 'kaminari'
+
 gem 'select_all-rails'
 
 gem 'cloudinary'

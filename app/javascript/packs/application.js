@@ -1,1 +1,2 @@
 require("@rails/activestorage").start()
+ 

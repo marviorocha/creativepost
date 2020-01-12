@@ -64,7 +64,7 @@ class PartiturasController < ApplicationController
   
          pdf_result = ConvertApi.convert(
             'extract',
-            File: "#{@partitura.link}",
+            File: "#{params['link_cloud']}",
             PageRange: 1,
           )
           

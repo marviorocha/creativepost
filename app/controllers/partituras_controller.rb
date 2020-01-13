@@ -118,11 +118,12 @@ class PartiturasController < ApplicationController
     def show 
         
         
+        source = params["source"]
         key = "wRjSNdPcrnT7CcK7jaS5HuWeT4Q9RQoF"
         agent = Mechanize.new
         @page = agent.get('https://duckduckgo.com/')
         duck_form = @page.form('x')
-        duck_form.q = "#{params['text']} sheet music filetype:pdf"
+        duck_form.q = "#{params['text']} #{ source } filetype:pdf"
         @page = agent.submit(duck_form, duck_form.buttons.first)
         
         # Inicio do looping

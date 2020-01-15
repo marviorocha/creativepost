@@ -89,7 +89,7 @@ class PartiturasController < ApplicationController
       file.puts '---'
       file.puts "title: #{@partitura.title}"
       file.puts "subtitle: #{params['subtitle']}"
-      file.puts "permalink: /#{@partitura.title.parameterize}/"
+      file.puts "permalink: /#{@partitura.title.parameterize.gsub(' ', '-')}/"
       file.puts "date: #{date}"
       file.puts "download_pdf: #{params['link_cloud']}"
       file.puts "category: partituras"
@@ -145,9 +145,12 @@ class PartiturasController < ApplicationController
    def destroy
 
  
-        if @partitura.destroy 
-        redirect_to new_partitura_path
-        flash[:notice] = "O item [#{@partitura.id}] foi deletado com sucesso!"
+        if @partitura.destroy
+          respond_to do |format|
+            format.html {flash[:notice] = "O item [#{@partitura.id}] foi deletado com sucesso!" }
+            format.js
+            
+          end
         end
     
  

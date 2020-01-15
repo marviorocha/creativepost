@@ -7,6 +7,7 @@
     "cool-checkboxes-for-bulma.io": "^1.1.0",
     "howler": "^2.1.2",
     "jquery": "^3.4.1",
+    "jquery-ujs": "^1.2.2",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10"

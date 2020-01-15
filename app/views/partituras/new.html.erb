@@ -1,0 +1,60 @@
+
+<%= form_tag destroy_multiple_partituras_path, method: :delete, data: {confirm: "You are sure this item?"} do %>
+<table class="table">
+
+<div class="column is-10">
+
+<div class="level">
+<div class="level-left">
+ <%= submit_tag 'Deletar Selecionado', class: 'button is-primary is-small is-danger is-outlined' %> 
+
+</div>
+ <div class="level-right">
+
+<b>Partitura: <%= @partitura.count %></b>
+ 
+ </div>
+
+</div>
+</div>
+<tr>
+
+   
+
+ <th data-sort-ignore="true">
+ <label for="checkbox" class="checkbox"> 
+ <input type="checkbox" class="checkbox" id="selectAll">
+ 
+ </label>
+ 
+ </th>
+ 
+<th>Title</th>
+<th>Description</th>
+<th>link</th>
+<th>Action</th>
+</th>
+<tbody>
+ 
+ 
+ 
+<% @partitura.each do |sheet| %>
+<tr>
+<td><%= check_box_tag "partituras_ids[]", sheet.id, false, class: 'selectable checkbox' %></td>
+<td><%= sheet.title %></td>
+<td><%= truncate(sheet.description, length: 30 ) %></td>
+<td><%= link_to 'visualizar', "#{sheet.link}", class: 'button is-outlined is-link', target: '_blank' %></td>
+<td class="buttons">
+<%= link_to "Publicar", edit_partitura_path(sheet), class: 'button is-success' %>
+<%= link_to "Deletar", partitura_path(sheet), method: :delete, remote: true, data: {confirm: "Você realmente deseja deletar esse item
+                 #{sheet.id}?"}, class: "button is-outlined is-danger is-small" %></td>
+</tr>
+<% end %>
+</tbody>
+<% end %>
+</table>
+
+<div class="column is-5">
+
+<%= paginate @partitura %>
+</div> 

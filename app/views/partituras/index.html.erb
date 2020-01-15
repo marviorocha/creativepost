@@ -1,0 +1,41 @@
+<% content_for(:title, 'Partituras Application')  %>
+
+<div class="container">
+<section>
+
+<div class="columns">
+
+<div class="column  is-half is-offset-4">
+
+<%= form_tag("/partituras/search", method: :get) do %>
+
+<div class="field has-addons">
+
+<div class="control has-icons-left">
+<%= text_field_tag(:text, '', class: 'input is-medium', placeholder: "Search partituras...") %>
+<span class="icon is-medium is-left">
+<i class="fas fa-search"></i>
+</span>
+</div>
+
+</div>
+<div class="field">
+<div class="control is-4">
+<%= label_tag(:font, "Fonte:") %>
+<%= text_field_tag(:source, "", class: 'input', placeholder: "site de refência...") %>
+</div>
+</div>
+
+  <%= submit_tag("Search", class: 'button is-medium is-primary') %>
+
+</div>
+<% end %>
+
+ 
+
+      <!-- // End Div columns is-centered -->
+  </div> 
+</div>    
+ 
+</section>
+</div>

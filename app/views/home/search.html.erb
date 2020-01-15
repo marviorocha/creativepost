@@ -63,13 +63,6 @@
 
   <p class="content">
 
-      <audio controls>
-      <source src="<%= score_mp3(music['id'], music['secret']) %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-    </audio>
-
-   </p>
-      <br> 
 <%= link_to "Publicar", show_path(music['id']), class: "button primary"  %>  |
  <a target="_blank" href="<%= music["permalink"] %>"> Visualizar</a>
     </div>

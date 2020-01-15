@@ -7,7 +7,19 @@ gem 'rest-client'
 
 gem 'devise'
 
+gem 'mechanize'
+
 gem 'font-awesome-sass'
+
+gem 'algorithmia'
+
+gem 'convert_api'
+
+gem 'kaminari'
+
+gem 'select_all-rails'
+
+gem 'cloudinary'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'

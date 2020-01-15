@@ -18,4 +18,4 @@ Reach out to me at one of the following places!
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2019 © <a href="http://marviorocha.com" target="_blank">MarvioRocha.Com</a>.
+- Copyright 2019 © <a href="http://marviorocha.com" target="_blank">MarvioRocha.Com</a>

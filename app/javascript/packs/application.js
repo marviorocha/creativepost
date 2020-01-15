@@ -1,11 +1,3 @@
-
-import {Howl, Howler} from 'howler';
-
-const {Howl, Howler} = require('howler');
-
-var sound = new Howl({
-    src: ['sound1.mp3']
-
-})
-
-sound.play();
+require("@rails/activestorage").start()
+ 
+//import {} from 'jquery-ujs'

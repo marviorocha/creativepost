@@ -101,7 +101,7 @@ class PartiturasController < ApplicationController
       file.puts "#{params['description']}"
     end
      
-    @partitura.update(title: "ok -------------------------")
+    @partitura.update(title: "ok Concluído ---------------")
     
     
           format.html {redirect_to new_partitura_path, notice: "Conteúdo foi adicionado com sucesso!"}

@@ -42,7 +42,6 @@ class PartiturasController < ApplicationController
        # client que gera conteúdoc
        title_friend = @partitura.title.parameterize
 
-       Cloudinary::Uploader.upload(@partitura.link,  :folder => "sheetmusic/", :public_id => title_friend )
        
        @resumo = sumarize.pipe(@suma).result
        
@@ -51,20 +50,25 @@ class PartiturasController < ApplicationController
       # Update and create score music 
     
       def update 
-      
-      respond_to do |format|
-
         
-
-        if(@partitura.update(partitura_params))
-
+   
+        respond_to do |format|
           
           
+          
+          if(@partitura.update(partitura_params))
+            
+    title_friend = @partitura.title.parameterize
+    Cloudinary::Uploader.upload(@partitura.link,  :folder => "sheetmusic/", :public_id => title_friend )
+          
+    @url_download_pdf = "http://res.cloudinary.com/djmnbpi6a/image/upload/fl_attachment/v1/sheetmusic/#{@partitura.title.parameterize}.pdf" 
+          
+   
     ConvertApi.config.api_secret = 'Oqj7jopTDGYyXzGw'
   
          pdf_result = ConvertApi.convert(
             'extract',
-            File: "#{params['link_cloud']}",
+            File: "#{@partitura.link}",
             PageRange: 1,
           )
           
@@ -91,7 +95,7 @@ class PartiturasController < ApplicationController
       file.puts "subtitle: #{params['subtitle']}"
       file.puts "permalink: /#{@partitura.title.parameterize.gsub(' ', '-')}/"
       file.puts "date: #{date}"
-      file.puts "download_pdf: #{params['link_cloud']}"
+      file.puts "download_pdf: #{@url_download_pdf}"
       file.puts "category: partituras"
       file.puts "image: #{image_out}"
       file.puts "layout: post"
@@ -123,7 +127,7 @@ class PartiturasController < ApplicationController
         agent = Mechanize.new
         @page = agent.get('https://duckduckgo.com/')
         duck_form = @page.form('x')
-        duck_form.q = "#{params['text']} #{ source } filetype:pdf"
+        duck_form.q = "#{params['text']} #{ source } sheet music filetype:pdf"
         @page = agent.submit(duck_form, duck_form.buttons.first)
         
         # Inicio do looping

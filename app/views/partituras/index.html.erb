@@ -21,8 +21,18 @@
 </div>
 <div class="field">
 <div class="control is-4">
-<%= label_tag(:font, "Fonte:") %>
-<%= text_field_tag(:source, "", class: 'input', placeholder: "site de refência...") %>
+ 
+<div class="select">
+<%= select_tag :source, options_for_select([
+  
+                                            ['Duck Duck Go', 'partituras pdf'],
+                                            ['Sheetmusic-Free', 'site:https://sheetmusic-free.com/'],
+                                            ['Sheet Music Download', 'site:https://sheetdownload.com/'],
+                                            ['Cifra Club', 'site:https://www.cifraclub.com.br/'],
+                                            ['POP Sheet Music', 'site:http://pop-sheet-music.com/']]) %>
+
+</div>
+ 
 </div>
 </div>
 
@@ -30,77 +40,9 @@
 
 </div>
 <% end %>
-
- 
-
       <!-- // End Div columns is-centered -->
   </div> 
-</div>    
- 
-</section>
+
+
 </div>
 
-
-<hr>
-<section>
-<%= form_tag destroy_multiple_partituras_path, method: :delete, data: {confirm: "You are sure this item?"} do %>
-<table class="table">
-
-<div class="column is-10">
-
-<div class="level">
-<div class="level-left">
- <%= submit_tag 'Deletar Selecionado', class: 'button is-primary is-small is-danger is-outlined' %> 
-
-</div>
- <div class="level-right">
-
-<b>Partitura: <%= @partitura.count %></b>
- 
- </div>
-
-</div>
-</div>
-<tr>
-
-   
-
- <th data-sort-ignore="true">
- <label for="checkbox" class="checkbox"> 
- <input type="checkbox" class="checkbox" id="selectAll">
- 
- </label>
- 
- </th>
- 
-<th>Title</th>
-<th>Description</th>
-<th>link</th>
-<th>Action</th>
-</th>
-<tbody>
- 
- 
- 
-<% @partitura.each do |sheet| %>
-<tr>
-<td><%= check_box_tag "partituras_ids[]", sheet.id, false, class: 'selectable checkbox' %></td>
-<td><%= sheet.title %></td>
-<td><%= truncate(sheet.description, length: 30 ) %></td>
-<td><%= link_to 'visualizar', "#{sheet.link}", class: 'button is-outlined is-link', target: '_blank' %></td>
-<td class="buttons">
-<%= link_to "Publicar", edit_partitura_path(sheet), class: 'button is-success' %>
-<%= link_to "Deletar", partitura_path(sheet), method: :delete, remote: true, data: {confirm: "Você realmente deseja deletar esse item
-                 #{sheet.id}?"}, class: "button is-outlined is-danger is-small" %></td>
-</tr>
-<% end %>
-</tbody>
-<% end %>
-</table>
-
-<div class="column is-5">
-
-<%= paginate @partitura %>
-</div> 
-
-</section>

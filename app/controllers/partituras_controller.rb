@@ -13,93 +13,12 @@ class PartiturasController < ApplicationController
   end
   
     def new 
-      client = Algorithmia.client('simyq5hd59LF15HNzOR8HGJ0YKJ1')
-      tags = client.algo('nlp/AutoTag/1.0.1')
-      sumarize = client.algo('SummarAI/Summarizer/0.1.3')
-      
-      @tags = ''
-      get_title = 'Partitura Musical Gospel'
-      input = {
-        articleName: get_title[0],
-                      lang: "pt"
-                    }
-                    algo = client.algo('web/WikipediaParser/0.1.2')
-                    result = algo.pipe(input).result
-                    algo.set('timeout':300) # optional
-                    
-       @suma = result['summary']
-       @images = result['images']
-       
-       # client que gera conteúdoc
-       title_friend = ''
-
-      @resumo = sumarize.pipe(@suma).result
-      @partitura = Partitura.new
+   
+    @partitura = Partitura.all.order(created_at: :desc).page(params['page'])
       
     end
 
-    def create
-      respond_to do |format|
-        
-        
-        @partitura = Partitura.new partitura_params
-        
-
-        
-
-          
-          
-    ConvertApi.config.api_secret = 'Oqj7jopTDGYyXzGw'
-  
-         pdf_result = ConvertApi.convert(
-            'extract',
-            File: "#{params['link_cloud']}",
-            PageRange: 1,
-          )
-          
-          jpg_result = ConvertApi.convert(
-            'jpg',
-            File: pdf_result,
-            ScaleImage: true,
-    ScaleProportions: true,
-    ImageHeight: 600,
-    ImageWidth: 600,
-    Timeout:400,
-    JpgQuality: 60,
-  )
-  
-  saved_files = jpg_result.save_files("../showbiz/assets/images/partituras/")
-  image_out = "#{saved_files[0].gsub("../showbiz","")}"
-
-  date = Time.zone.now.strftime("%Y-%m-%d-%H-%M")
-  
-   File.open("../showbiz/_posts/partituras/#{date}-#{@partitura.title}.md", 'w') do |file|
-      
-      file.puts '---'
-      file.puts "title: #{@partitura.title}"
-      file.puts "subtitle: #{params['subtitle']}"
-      file.puts "permalink: /#{@partitura.title.parameterize.gsub(' ', '-')}/"
-      file.puts "date: #{date}"
-      file.puts "download_pdf: #{params['link_cloud']}"
-      file.puts "category: partituras"
-      file.puts "image: #{image_out}"
-      file.puts "layout: post"
-      file.puts "tags: [#{params['tags']}]"
-      file.puts "nivel: #{params['nivel']}"
-      file.puts '---'
-      file.puts "#{params['description']}"
-    end
-     
-    @partitura.update(title: "ok -------------------------")
-    
-    
-          format.html {redirect_to partituras_path, notice: "Conteúdo foi adicionado com sucesso!"}
-      
-     
  
-    end
-      
-    end
     
     
     def edit
@@ -249,7 +168,7 @@ class PartiturasController < ApplicationController
    
     respond_to do |format|
      
-      format.html { redirect_to partituras_path, notice: "Os itens foi deletado com successo"}
+      format.html { redirect_to new_partitura_path, notice: "Os itens foi deletado com successo"}
        
     end
   end

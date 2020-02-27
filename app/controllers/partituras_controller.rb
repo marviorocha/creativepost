@@ -44,10 +44,8 @@ class PartiturasController < ApplicationController
        @images = result['images']
        
        # client que gera conteúdoc
-       title_friend = @partitura.title.parameterize
-
-       Cloudinary::Uploader.upload(@partitura.link,  :folder => "sheetmusic/", :public_id => title_friend )
        
+        
        @resumo = sumarize.pipe(@suma).result
        
       end
@@ -58,17 +56,19 @@ class PartiturasController < ApplicationController
       
       respond_to do |format|
 
-        
+       title_friend = "#{params['title']}_showbiz.mus.br".parameterize
+
+       Cloudinary::Uploader.upload("#{params['link']}",  :folder => "sheetmusic/", :public_id => title_friend )
+
+       link_cloud = "http://res.cloudinary.com/djmnbpi6a/image/upload/fl_attachment/v1/sheetmusic/#{title_friend}.pdf"
 
         if(@partitura.update(partitura_params))
-
-          
-          
+           
     ConvertApi.config.api_secret = 'Oqj7jopTDGYyXzGw'
   
          pdf_result = ConvertApi.convert(
             'extract',
-            File: "#{params['link_cloud']}",
+            File: "#{params['link']}",
             PageRange: 1,
           )
           

@@ -20,13 +20,33 @@
 
 <div class="field">
     <div class="control">
+<<<<<<< HEAD
         <%= f.label :nivel, "Nível", class: "label" %>
         <div class="select">
             <%= select_tag :nivel, options_for_select(["Iniciante", "Fácil", "Intermediário", "Avançado"]), class: "select" %>
         </div>
     </div>
+=======
+    <%= f.label :nivel, "Nível", class: "label" %>
+    <div class="select">
+    <%= select_tag :nivel, options_for_select(["Iniciante", "Fácil", "Intermediário", "Avançado"]), class: "select" %>
+    </div>
+ </div>
+ 
+<div class="field">
+    <div class="control">
+
+    <%= f.label :link, "Link PDF:", class: "label" %>
+     <%= f.text_field :link, class: "input"  %>
+    
+    </div>
+
+</div>
+ 
+>>>>>>> developer
 
 
+<<<<<<< HEAD
     <div class="field">
         <div class="control is-medium">
             <%= f.label :description, "Conteúdo:", class: "label" %>
@@ -55,5 +75,29 @@
    
 
  
+=======
+<div class="field">
+
+<div class="control">
+<%= f.label :tags, "Tags:", class: "label" %>
+<%= text_field_tag(:tags,"", class: "input") %>
+</div>
+
+</div>
+
+ 
+<div class="field">
+    <div class="control">
+    <%= f.submit 'Publicar', class: "button is-success" %>
+    </div>
+</div>
+
+ 
+ <% if action_name == 'new' %>
+     
+<% else %>
+<%= hidden_field_tag :link_cloud, "http://res.cloudinary.com/djmnbpi6a/image/upload/fl_attachment/v1/sheetmusic/#{@partitura.title.parameterize}.pdf", class: "input" %>
+ <% end %>
+>>>>>>> developer
 
     <% end %>

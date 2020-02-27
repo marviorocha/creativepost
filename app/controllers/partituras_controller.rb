@@ -8,14 +8,18 @@ class PartiturasController < ApplicationController
   
   def index 
     
+    @partitura = Partitura.all.order(created_at: :desc).page(params['page'])
     
   end
   
     def new 
-      
-      @partitura = Partitura.all.order(created_at: :desc).page(params['page'])
+   
+    @partitura = Partitura.all.order(created_at: :desc).page(params['page'])
       
     end
+
+ 
+    
     
     def edit
       
@@ -108,7 +112,7 @@ class PartiturasController < ApplicationController
     @partitura.update(title: "ok Concluído -------------------------")
     
     
-          format.html {redirect_to new_partitura_path, notice: "Conteúdo foi adicionado com sucesso!"}
+          format.html {redirect_to partituras_path, notice: "Conteúdo foi adicionado com sucesso!"}
         else
 
         end

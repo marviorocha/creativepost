@@ -37,7 +37,7 @@
     <div class="control">
 
     <%= f.label :link, "Link PDF:", class: "label" %>
-     <%= f.text_field :link, class: "input"  %>
+     <%= text_field_tag(:link,"", class: "input")  %>
     
     </div>
 
@@ -93,11 +93,16 @@
 </div>
 
  
+<<<<<<< HEAD
  <% if action_name == 'new' %>
      
 <% else %>
 <%= hidden_field_tag :link_cloud, "http://res.cloudinary.com/djmnbpi6a/image/upload/fl_attachment/v1/sheetmusic/#{@partitura.title.parameterize}.pdf", class: "input" %>
  <% end %>
+>>>>>>> developer
+=======
+ 
+
 >>>>>>> developer
 
     <% end %>
